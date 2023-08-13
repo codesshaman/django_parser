@@ -1,0 +1,42 @@
+version: "3"
+
+services:
+  django:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    # healthcheck:
+    #   test: ["CMD-SHELL", "curl --fail http://localhost:8008/parse223/32312493721/ || exit 1"]
+    #   interval: 5s
+    #   timeout: 5s
+    #   retries: 3
+    restart: unless-stopped
+    ports:
+      - "8008:8000"
+    volumes:
+      - ./app/project:/app
+    container_name: django
+    # networks:
+    #   - network
+
+  # nginx:
+  #   image: 'nginx:1.23.3-alpine'
+  #   healthcheck:
+  #     test: ["CMD-SHELL", "curl --fail http://localhost:88 || exit 1"]
+  #     interval: 5s
+  #     timeout: 5s
+  #     retries: 3
+  #   volumes:
+  #     - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf:z
+  #   depends_on:
+  #     - django
+  #   restart: unless-stopped
+  #   ports:
+  #     - 88:80
+  #   container_name: nginx
+    # networks:
+    #   - network
+
+# networks:
+#   network:
+#     driver: bridge
